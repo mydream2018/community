@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class AuthorizeController {
     @Autowired
@@ -23,7 +25,8 @@ public class AuthorizeController {
 
     @GetMapping("/callback")
     public String callback(@RequestParam("code") String code,
-                           @RequestParam("state") String state){
+                           @RequestParam("state") String state,
+                           HttpServletRequest request){
 //        System.out.println("调用了函数callback");
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
@@ -33,8 +36,14 @@ public class AuthorizeController {
         accessTokenDTO.setState(state);
         String token = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(token);
-        System.out.println(githubUser.getName() + "--" + githubUser.getId() + "--" + githubUser.getBio());
-        return "index";
+//        System.out.println(githubUser.getName() + "--" + githubUser.getId() + "--" + githubUser.getBio());
+        if(githubUser != null){
+            request.getSession().setAttribute("user", githubUser);
+            return "redirect:/";
+        }else {
+            return "redirect:/";
+        }
+
     }
 
 }
