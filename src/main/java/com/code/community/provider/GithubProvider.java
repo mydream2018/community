@@ -25,7 +25,6 @@ public class GithubProvider {
                 .build();
         try (Response response = client.newCall(request).execute()) {
 //这是下面的mybody返回数据的格式，需要做字符串切分，得到想要的token
-//access_token=d2c749ed973004200dc39ac5a57eeaab61ba790a&scope=user&token_type=bearer
             String mybody = response.body().string();
             String[] strs = mybody.split("&");
             String token = strs[0].split("=")[1];
