@@ -19,7 +19,13 @@ public class IndexController {
 
     @GetMapping("/")
     public String hello(HttpServletRequest request){
+
+
         Cookie[] cookies = request.getCookies();
+        //自己添加的cookie非空判断
+        if(cookies == null){
+            return "index";
+        }
         for(Cookie cookie : cookies){
             if(cookie.getName().equals("token")){
                 String token = cookie.getValue();
