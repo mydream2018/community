@@ -39,6 +39,7 @@ public class AuthorizeController {
                            HttpServletResponse response){
 //        System.out.println("调用了函数callback");
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
+
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(secretId);
         accessTokenDTO.setCode(code);
@@ -57,6 +58,7 @@ public class AuthorizeController {
             user.setGmtModified(user.getGmtCreate());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setBio(githubUser.getBio());
+            user.setAvatarUrl(githubUser.getAvatar_url());
             userMapper.insert(user);
 //            request.getSession().setAttribute("user", githubUser);
             response.addCookie(new Cookie("token", userToken));

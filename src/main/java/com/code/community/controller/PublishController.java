@@ -53,7 +53,7 @@ public class PublishController {
         }
         User user = null;
         Cookie[] cookies = request.getCookies();
-        if(cookies == null){
+        if(cookies == null || cookies.length == 0){
             model.addAttribute("error", "用户未登录");
             return "publish";
         }

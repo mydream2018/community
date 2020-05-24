@@ -23,7 +23,7 @@ public class IndexController {
 
         Cookie[] cookies = request.getCookies();
         //自己添加的cookie非空判断
-        if(cookies == null){
+        if(cookies == null || cookies.length == 0){
             return "index";
         }
         for(Cookie cookie : cookies){
