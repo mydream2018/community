@@ -11,7 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @Controller
@@ -35,7 +36,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam("code") String code,
                            @RequestParam("state") String state,
-                           HttpServletRequest request){
+                           HttpServletResponse response){
 //        System.out.println("调用了函数callback");
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
@@ -44,17 +45,20 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
         String token = githubProvider.getAccessToken(accessTokenDTO);
+//        System.out.println(token);
         GithubUser githubUser = githubProvider.getUser(token);
 //        System.out.println(githubUser.getName() + "--" + githubUser.getId() + "--" + githubUser.getBio());
         if(githubUser != null){
             User user = new User();
-            user.setToken(UUID.randomUUID().toString());
+            String userToken = UUID.randomUUID().toString();
+            user.setToken(userToken);
             user.setName(githubUser.getName());
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             user.setAccountId(String.valueOf(githubUser.getId()));
             userMapper.insert(user);
-            request.getSession().setAttribute("user", githubUser);
+//            request.getSession().setAttribute("user", githubUser);
+            response.addCookie(new Cookie("token", userToken));
             return "redirect:/";
         }else {
             return "redirect:/";

@@ -41,10 +41,14 @@ public class GithubProvider {
     public GithubUser getUser(String accessToken){
         OkHttpClient client = new OkHttpClient();
 //        String url="https://api.github.com/user?access_token=" + accessToken;
+//        Request request = new Request.Builder()
+//                    .url("https://api.github.com/user")
+//                    .header("Authorization", "token " + accessToken)
+//                    .build();
         Request request = new Request.Builder()
-                    .url("https://api.github.com/user")
-                    .header("Authorization", "token " + accessToken)
-                    .build();
+                .url("https://api.github.com/user")
+                .header("Authorization","token "+accessToken)
+                .build();
 
         Response response = null;
         GithubUser user = null;
