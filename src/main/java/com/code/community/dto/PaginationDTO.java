@@ -17,25 +17,15 @@ public class PaginationDTO {
     private Integer totalPage;
 
 
-    public void setPagination(Integer totalCount, Integer page, Integer size) {
+    public void setPagination(Integer totalPage, Integer page) {
         this.page = page;
-
-        Integer totalPage;
-        if(totalCount % size == 0){
-            totalPage = totalCount / size;
-        }else{
-            totalPage = (totalCount / size) + 1;
-        }
-//        System.out.println(totalPage+"------totalPage---------------");
-//        System.out.println(totalCount+"-----totalCount----------------");
         this.totalPage = totalPage;
-        if(this.page < 1){
+        if(this.page < 1){//小于第一页改成第一页
             this.page = 1;
         }
-        if(this.page > totalPage){
+        if(this.page > totalPage){//大于最后一页改成最后一页
             this.page = totalPage;
         }
-
         pages.add(this.page);
         for(int i = 1; i <= 3; i++){
             if(this.page - i > 0){
@@ -46,14 +36,13 @@ public class PaginationDTO {
             }
         }
 
-
         if(this.page == 1){//是否展示跳转到第一页
             this.showPrevious = false;
         }else{
             this.showPrevious = true;
         }
 
-        if(this.page == totalPage) {//是否展示跳转到最后一页
+        if(this.page.equals(totalPage)) {//是否展示跳转到最后一页
             this.showNext = false;
         }else{
             this.showNext = true;
