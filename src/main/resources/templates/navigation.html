@@ -23,7 +23,7 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li th:if="${session.user != null}">
-                        <a href="/publish">发布</a>
+                        <a href="/publish">提问</a>
                     </li>
                     <li th:if="${session.user == null}"><a href="https://github.com/login/oauth/authorize?client_id=5a7d4b587a6053a37b9c&redirect_uri=http://localhost:8090/callback&scope=user&state=1">登录</a></li>
                     <li th:if="${session.user != null}" class="dropdown">

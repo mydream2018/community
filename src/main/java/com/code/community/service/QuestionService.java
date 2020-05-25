@@ -23,8 +23,6 @@ public class QuestionService {
     private UserMapper userMapper;
 
     public PaginationDTO list(Integer page, Integer size){
-        //(page - 1) * 5
-
 
 //        Integer totalCount = questionMapper.count();
 //        pagination.setPagination(totalCount, page, size);
