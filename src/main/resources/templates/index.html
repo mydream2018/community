@@ -38,7 +38,9 @@
                     </a>
                 </div>
                 <div class="media-body" >
-                    <h4 class="media-heading" th:text="${question.title}">如何进入BAT大厂，秘籍告诉你。</h4>
+                    <h4 class="media-heading">
+                        <a th:href="@{'/question/' +${question.id}}" th:text="${question.title}"></a>
+                    </h4>
                     <span th:text="${question.description}">努力学习，使劲刷LeetCode，做项目，攒经验。</span><br/>
                     <span class="text-desc" >●
                         <span th:text="${question.likeCount}"></span> 人关注●
