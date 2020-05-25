@@ -10,8 +10,18 @@ body{
     float: right;
     margin-bottom: 15px;
 }
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
 
 .btn-my_info{
     float: left;
     margin-bottom: 15px;
+}
+
+.avatar-height{
+    height: 38px;
+    width: 38px;
 }
