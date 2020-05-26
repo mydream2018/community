@@ -4,6 +4,7 @@ import com.code.community.dto.PaginationDTO;
 import com.code.community.dto.QuestionDTO;
 import com.code.community.exception.CustomizeErrorCode;
 import com.code.community.exception.CustomizeException;
+import com.code.community.mapper.QuestionExtraMapper;
 import com.code.community.mapper.QuestionMapper;
 import com.code.community.mapper.UserMapper;
 import com.code.community.model.Question;
@@ -26,10 +27,11 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private QuestionExtraMapper questionExtraMapper;
+
     public PaginationDTO list(Integer page, Integer size){
 
-//        Integer totalCount = questionMapper.count();
-//        pagination.setPagination(totalCount, page, size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         PaginationDTO paginationDTO = new PaginationDTO();
         //获取论坛用户发布问题的总数量
@@ -132,5 +134,12 @@ public class QuestionService {
             }
 
         }
+    }
+
+    public void inView(Integer id) {
+        Question updateQuestion = new Question();
+        updateQuestion.setViewCount(1);
+        updateQuestion.setId(id);
+        questionExtraMapper.incView(updateQuestion);
     }
 }

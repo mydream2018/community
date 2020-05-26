@@ -17,8 +17,10 @@ public class CustomizeExceptionHandler {
     @ResponseBody
     ModelAndView handle(HttpServletRequest request, Throwable ex, Model model) {
         if(ex instanceof CustomizeException){
+            ex.printStackTrace();
             model.addAttribute("messages", ex.getMessage());
         }else {
+            ex.printStackTrace();
             model.addAttribute("messages", "服务器内部错误，请稍后重试！");
         }
 
