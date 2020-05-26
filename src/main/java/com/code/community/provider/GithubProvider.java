@@ -40,11 +40,6 @@ public class GithubProvider {
 
     public GithubUser getUser(String accessToken) throws Exception {
         OkHttpClient client = new OkHttpClient();
-//        String url="https://api.github.com/user?access_token=" + accessToken;
-//        Request request = new Request.Builder()
-//                    .url("https://api.github.com/user")
-//                    .header("Authorization", "token " + accessToken)
-//                    .build();
         Request request = new Request.Builder()
                 .url("https://api.github.com/user")
                 .header("Authorization","token "+accessToken)
@@ -60,10 +55,6 @@ public class GithubProvider {
 //            e.printStackTrace();
 //            System.out.println("github又抽风了，请重试！");
             throw  e;
-        } finally {
-            if(user == null){
-                return null;
-            }
         }
 
     }

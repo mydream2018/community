@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>编程论坛</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="/js/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/my-css.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <script src="/js/bootstrap.min.js" type="application/javascript">
+    </script>
+
+    <!--    <link rel="stylesheet" href="../static/css/bootstrap.min.css">-->
+<!--    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">-->
+<!--    <script src="../static/js/bootstrap.min.js"></script>-->
+</head>
+<body>
+
+<div th:insert="~{navigation::nav}"></div>
+<!--添加问题发布页的内容-->
+<div class="container-fluid ">
+        <div class="jumbotron" style="text-align: center">
+            <h3>呀，页面好像出问题了!</h3>
+            <p><span th:text="${messages}">服务太热了，请稍后重试！</span></p>
+            <p><a class="btn btn-primary btn-lg" href="/" role="button">点我返回首页</a></p>
+        </div>
+</div>
+
+</body>
+</html>

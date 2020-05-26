@@ -60,12 +60,12 @@ public class AuthorizeController {
             //e.printStackTrace();
             model.addAttribute("errorMsg","github出了点问题，请重新登录");
             System.out.println("github抽风了，请尝试重新登录！");
-            return "redirect:/";
         }
 //        System.out.println(githubUser.getName() + "--" + githubUser.getId() + "--" + githubUser.getBio());
         //输出github 的id值
-        System.out.println(githubUser.getId()+"------------------------------");
+
         if(githubUser != null && githubUser.getId() != null){
+            System.out.println(githubUser.getId()+"------------------------------");
             User user = new User();
             String userToken = UUID.randomUUID().toString();
             user.setToken(userToken);
