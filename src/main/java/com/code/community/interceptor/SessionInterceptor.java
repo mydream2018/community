@@ -23,7 +23,7 @@ public class SessionInterceptor implements HandlerInterceptor {
         Cookie[] cookies = request.getCookies();
         //自己添加的cookie非空判断
         if(cookies == null || cookies.length == 0){
-            return false;
+            return true;
         }
         for(Cookie cookie : cookies){
             if(cookie.getName().equals("token")){
@@ -36,7 +36,6 @@ public class SessionInterceptor implements HandlerInterceptor {
                 break;
             }
         }
-
         return true;
     }
 

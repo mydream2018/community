@@ -26,17 +26,20 @@ public class PaginationDTO {
         if(this.page > totalPage){//大于最后一页改成最后一页
             this.page = totalPage;
         }
-        pages.add(this.page);
+        if(!this.page.equals(0)){
+            pages.add(this.page);
+        }
+
         for(int i = 1; i <= 3; i++){
-            if(this.page - i > 0){
+            if(this.page - i > 0 && !this.page.equals(0)){
                 pages.add(0, this.page - i);
             }
-            if(this.page + i <= totalPage){
+            if(this.page + i <= totalPage && !this.page.equals(0)){
                 pages.add(this.page + i);
             }
         }
 
-        if(this.page == 1){//是否展示跳转到第一页
+        if(this.page.equals(1) ){//是否展示跳转到第一页
             this.showPrevious = false;
         }else{
             this.showPrevious = true;
@@ -58,6 +61,12 @@ public class PaginationDTO {
             this.showEndPage = false;
         }else{
             this.showEndPage = true;
+        }
+        if(this.page.equals(0)){
+            this.showPrevious = false;
+            this.showNext = false;
+            this.showFirstPage = false;
+            this.showEndPage = false;
         }
     }
 }
