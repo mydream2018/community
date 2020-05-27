@@ -30,6 +30,8 @@ public class CommentService {
         }
         //评论的类型错误
         if(comment.getType() == null || !CommentTypeEnum.isExist(comment.getType())){
+            System.out.println(comment.getType()== null);
+            System.out.println(CommentTypeEnum.isExist(comment.getType()));
             throw new CustomizeException(CustomizeErrorCode.TYPE_PARAM_WRONG);
         }
 
@@ -45,11 +47,8 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
             commentMapper.insert(comment);
+            question.setCommentCount(1);
             questionExtraMapper.incCommentCount(question);
-
         }
-
-
-
     }
 }

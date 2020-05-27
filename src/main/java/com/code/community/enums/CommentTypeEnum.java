@@ -18,10 +18,10 @@ public enum CommentTypeEnum {
     }
 
     public static boolean isExist(Integer type) {
-        if(type.equals(CommentTypeEnum.QUESTION)){
-            return true;
-        }else if(type.equals(CommentTypeEnum.COMMENT)){
-            return true;
+        for (CommentTypeEnum commentTypeEnum : CommentTypeEnum.values()) {
+            if (commentTypeEnum.getType().equals(type)) {
+                return true;
+            }
         }
         return false;
     }
