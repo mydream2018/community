@@ -7,7 +7,6 @@ import com.code.community.model.User;
 import com.code.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +25,7 @@ public class PublishController {
     private QuestionMapper questionMapper;
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable("id") Integer id,Model model){
+    public String edit(@PathVariable("id") Long id,Model model){
         QuestionDTO question = questionService.findById(id);
         model.addAttribute("title", question.getTitle());
         model.addAttribute("description", question.getDescription());
@@ -45,7 +44,7 @@ public class PublishController {
             @RequestParam(value = "title",required = false) String title,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
-            @RequestParam(value = "id", required = false) Integer id,
+            @RequestParam(value = "id", required = false) Long id,
             HttpServletRequest request,
             Model model){
 

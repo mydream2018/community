@@ -10,7 +10,6 @@ import com.code.community.mapper.UserMapper;
 import com.code.community.model.Question;
 import com.code.community.model.QuestionExample;
 import com.code.community.model.User;
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,9 +45,7 @@ public class QuestionService {
         paginationDTO.setPagination(totalPage, page);
 
         Integer offset = (paginationDTO.getPage() - 1) * size;
-//        List<Question> questionList1 = questionMapper.list(offset, size);
-        List<Question> questionList = questionMapper.selectByExampleWithRowbounds(
-                new QuestionExample(), new RowBounds(offset, size));
+        List<Question> questionList = questionExtraMapper.list(offset, size);
 
 
         for(Question question : questionList){
@@ -65,7 +62,7 @@ public class QuestionService {
     }
 
 
-    public PaginationDTO list(Integer userId, Integer page, Integer size) {
+    public PaginationDTO list(Long userId, Integer page, Integer size) {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         PaginationDTO paginationDTO = new PaginationDTO();
         //获取个人发布问题的总数量
@@ -84,10 +81,8 @@ public class QuestionService {
 
         QuestionExample questionExampleWithId = new QuestionExample();
         questionExampleWithId.createCriteria().andCreatorEqualTo(userId);
-        List<Question> questionList = questionMapper.selectByExampleWithRowbounds(
-                questionExampleWithId, new RowBounds(offset, size));
 
-//        List<Question> questionList = questionMapper.listByUserId(userId,offset, size);
+        List<Question> questionList = questionExtraMapper.listByUserId(userId,offset, size);
         for(Question question : questionList){
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
@@ -102,7 +97,7 @@ public class QuestionService {
 
     }
 
-    public QuestionDTO findById(Integer id) {
+    public QuestionDTO findById(Long id) {
 
         Question question = questionMapper.selectByPrimaryKey(id);
         if(question == null){
@@ -119,6 +114,9 @@ public class QuestionService {
         if(question.getId() == null){//该问题第一发布，需要插入
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setLikeCount(0);
+            question.setViewCount(0);
+            question.setCommentCount(0);
             questionMapper.insert(question);
         }else{//该问题经过提问者修改，需要重新更新一下
             Question questionModified = new Question();
@@ -136,7 +134,7 @@ public class QuestionService {
         }
     }
 
-    public void inView(Integer id) {
+    public void inView(Long id) {
         Question updateQuestion = new Question();
         updateQuestion.setViewCount(1);
         updateQuestion.setId(id);
