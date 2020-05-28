@@ -10,6 +10,7 @@ import com.code.community.model.Comment;
 import com.code.community.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommentService {
@@ -23,6 +24,7 @@ public class CommentService {
     @Autowired
     private QuestionExtraMapper questionExtraMapper;
 
+    @Transactional
     public void insert(Comment comment) {
         //评论的parentId不存在
         if(comment.getParentId() == null || comment.getParentId() == 0){

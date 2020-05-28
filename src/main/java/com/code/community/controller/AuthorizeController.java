@@ -57,8 +57,9 @@ public class AuthorizeController {
         try {
             githubUser = githubProvider.getUser(token);
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             model.addAttribute("errorMsg","github出了点问题，请重新登录");
+            System.out.println(token);
             System.out.println("github抽风了，请尝试重新登录！");
         }
 //        System.out.println(githubUser.getName() + "--" + githubUser.getId() + "--" + githubUser.getBio());

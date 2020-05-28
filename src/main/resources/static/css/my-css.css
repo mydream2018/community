@@ -1,35 +1,50 @@
-body{
+body {
     background: #efefef;
 }
-.main{
-    margin:30px;
+
+.main {
+    margin: 30px;
     background-color: white;
 }
 
-.btn-publish{
+.btn-publish {
     float: right;
     margin-bottom: 15px;
 }
-.text-desc{
+
+.text-desc {
     font-size: 12px;
     font-weight: normal;
     color: #999;
 }
 
-.btn-my_info{
+.btn-my_info {
     float: left;
     margin-bottom: 15px;
 }
+.media-body {
+    padding-top: 10px;
+}
 
-.avatar-height{
+.avatar-height {
     height: 38px;
     width: 38px;
 }
 
-.section{
+.media-body {
+    padding-top: 10px;
+}
+
+.section {
     margin-top: 15px;
 }
-.community-menu{
+
+.community-menu {
     font-size: 13px;
-    color:#999;
+    color: #999;
 }
+
+.comment {
+    margin: 10px 0;
+}
+
