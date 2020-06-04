@@ -39,12 +39,55 @@ body {
     margin-top: 15px;
 }
 
+.sub-comments .btn{
+    margin: 10px 0;
+}
+
 .community-menu {
     font-size: 13px;
     color: #999;
+    margin-bottom: 15px;
 }
 
 .comment {
     margin: 10px 0;
 }
 
+.sub-comments{
+    margin-top: 10px;
+    padding-top: 15px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    margin-bottom: 15px;
+}
+
+.comment-sp{
+    margin-top: 0;
+}
+
+.menu{
+    color:#999;
+    margin-top: 5px;
+}
+.menu .icon{
+    margin-right: 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.menu .icon:hover{
+    color: #499ef3;
+}
+
+.comments{
+
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+.question-title{
+    margin-top: 25px;
+}
+
+.menu .active{
+    color: #499ef3;
+}

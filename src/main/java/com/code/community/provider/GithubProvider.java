@@ -61,36 +61,52 @@ public class GithubProvider {
 
 
     public GithubUser getUser(String accessToken) throws Exception {
-        int timeout = 60;
-        RequestConfig defaultRequestConfig = RequestConfig.custom()
-                .setSocketTimeout(timeout * 1000)
-                .setConnectTimeout(timeout * 1000)
-                .setConnectionRequestTimeout(timeout * 1000)
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("https://api.github.com/user?access_token=" + accessToken)
                 .build();
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpget = new HttpGet("https://api.github.com/user");
-        httpget.addHeader(new BasicHeader("Authorization", "token "+accessToken));
-        httpget.setProtocolVersion(HttpVersion.HTTP_1_0);
-        httpget.addHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_CLOSE);
-        httpget.setConfig(defaultRequestConfig);
-        CloseableHttpResponse response = null;
         try {
-            response = httpclient.execute(httpget);
-            System.out.println(response.getStatusLine());
-            HttpEntity entity = response.getEntity();
-            GithubUser user = JSON.parseObject(entity.getContent(),GithubUser.class);
-            EntityUtils.consume(entity);
-            response.close();
-            return  user;
-        } catch (Exception e){
+            Response response = client.newCall(request).execute();
+            String string = response.body().string();
+            GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
+            return githubUser;
+        } catch (Exception e) {
             throw e;
-        } finally{
-            if(response != null){
-                response.close();
-            }
-            if(httpclient!=null){
-                httpclient.close();
-            }
         }
+//        return null;
+
+
+
+//        int timeout = 60;
+//        RequestConfig defaultRequestConfig = RequestConfig.custom()
+//                .setSocketTimeout(timeout * 1000)
+//                .setConnectTimeout(timeout * 1000)
+//                .setConnectionRequestTimeout(timeout * 1000)
+//                .build();
+//        CloseableHttpClient httpclient = HttpClients.createDefault();
+//        HttpGet httpget = new HttpGet("https://api.github.com/user");
+//        httpget.addHeader(new BasicHeader("Authorization", "token "+accessToken));
+//        httpget.setProtocolVersion(HttpVersion.HTTP_1_0);
+//        httpget.addHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_CLOSE);
+//        httpget.setConfig(defaultRequestConfig);
+//        CloseableHttpResponse response = null;
+//        try {
+//            response = httpclient.execute(httpget);
+//            System.out.println(response.getStatusLine());
+//            HttpEntity entity = response.getEntity();
+//            GithubUser user = JSON.parseObject(entity.getContent(),GithubUser.class);
+//            EntityUtils.consume(entity);
+//            response.close();
+//            return  user;
+//        } catch (Exception e){
+//            throw e;
+//        } finally{
+//            if(response != null){
+//                response.close();
+//            }
+//            if(httpclient!=null){
+//                httpclient.close();
+//            }
+//        }
     }
 }
