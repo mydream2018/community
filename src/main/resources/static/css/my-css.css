@@ -77,7 +77,13 @@ body {
 .menu .icon:hover{
     color: #499ef3;
 }
-
+.menu .comment-icon{
+    font-size: 15px;
+    cursor: pointer;
+}
+.menu .comment-icon :hover{
+    color: #499ef3;
+}
 .comments{
 
     padding-bottom: 5px;
@@ -87,7 +93,16 @@ body {
 .question-title{
     margin-top: 25px;
 }
-
+.question-tag{
+    margin-right: 5px;
+}
+.question-related{
+    line-height: 20px;
+    font-size: 12px;
+    margin-left:0px;
+    list-style: none;
+    padding-left: 0;
+}
 .menu .active{
     color: #499ef3;
 }
