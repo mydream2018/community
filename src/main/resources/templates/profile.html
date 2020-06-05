@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <script src="/js/bootstrap.min.js" type="application/javascript">
     </script>
-
-    <!--    <link rel="stylesheet" href="../static/css/bootstrap.min.css">-->
-    <!--    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">-->
-    <!--    <script src="../static/js/bootstrap.min.js"></script>-->
 </head>
 <body>
 
@@ -45,10 +41,15 @@
                         <span th:text="${question.likeCount}"></span> 人关注●
                         <span th:text="${question.viewCount}"></span>  次浏览●
                         <span th:text="${question.commentCount}"></span>  个回复●
-                        <!--<span th:text="${#calendars.format(question.gmtCreate,'yyyy MMMM dd')}">13 february 2011</span>-->
                         <span th:text="${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+
                     </span>
+                    <a th:href="@{'/publish/'+${question.id}}" class=" community-menu"
+                       th:if="${session.user != null && session.user.id == question.creator}">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span>
+                    </a>
                 </div>
+
             </div>
             <!--这是是分页-->
             <nav aria-label="Page navigation">

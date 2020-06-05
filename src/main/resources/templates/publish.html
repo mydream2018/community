@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/my-css.css">
-    <script src="/js/bootstrap.min.js" type="application/javascript">
-    </script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/community.js" type="application/javascript"> </script>
+
 
 </head>
 <body>
@@ -17,7 +18,7 @@
 <!--添加问题发布页的内容-->
 <div class="container-fluid main">
     <div class="row">
-        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="height: 500px;" >
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
             <h2>
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 发起
@@ -27,15 +28,48 @@
                 <input type="hidden" name="id" th:value="${id}"/>
                 <div class="form-group">
                     <lable for="title">问题标题(简单扼要):</lable>
-                    <input type="text" th:value="${title}" class="form-control" id="title" name="title" placeholder="问题标题......"/>
+                    <input type="text" th:value="${title}" class="form-control" id="title" name="title" placeholder="问题标题......" autocomplete="off"/>
                 </div>
                 <div class="form-group">
                     <lable for="title">问题补充(必填，请参照右侧提示):</lable>
-                    <textarea name="description" th:text="${description}" id="description" class="form-control" rows="5" cols="50"></textarea>
+                    <textarea name="description" th:text="${description}" id="description" class="form-control" rows="5" cols="50" autocomplete="off"></textarea>
                 </div>
                 <div class="form-group">
                     <lable for="tag">添加标签:</lable>
-                    <input type="text" th:value="${tag}" class="form-control" id="tag" name="tag" placeholder="输入标签，以逗号分隔"/>
+                    <input type="text" th:value="${tag}" class="form-control" id="tag" name="tag" placeholder="输入标签，以逗号分隔" autocomplete="off" onclick="showSelectTag()"/>
+                </div >
+<!--                选择标签的位置-->
+                <div id="select-tag" class="publish-tag-tab">
+                    <!-- 标签的导航页 -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" th:each="selectTag, selectTageStatus:${tags}"
+                            th:class="${selectTageStatus.first?'active':''}">
+                            <a th:href="'#'+${selectTag.categoryName}"
+                               aria-controls="home" role="tab" data-toggle="tab"
+                               th:text="${selectTag.categoryName}"
+                                ></a>
+                        </li>
+<!--                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">开发语言</a></li>-->
+                    </ul>
+
+                    <!-- 标签的具体类别 -->
+                    <div class="tab-content">
+<!--                        <div role="tabpanel" class="tab-pane active" id="home">-->
+
+<!--                            <label class="label label-info question-tag" ><span class="glyphicon glyphicon-tags" onclick="selectTag('Java')">&nbsp;Java</span></label>-->
+<!--                            <label class="label label-info question-tag" ><span class="glyphicon glyphicon-tags" onclick="selectTag('C++')">&nbsp;C++</span></label>-->
+
+<!--                        </div>-->
+                        <div role="tabpanel" class="tab-pane" th:id="${selectTag.categoryName}"
+                             th:each="selectTag,selectTageStatus:${tags}"
+                             th:class="${selectTageStatus.first?'active tab-pane':'tab-pane'}">
+                            <label class="label label-info" th:each="selectTagName:${selectTag.tags}">
+                                <span class="glyphicon glyphicon-tags"
+                                      onclick="selectTag(this)" th:data-tag="${selectTagName}" th:text="' ' + ${selectTagName}"></span>
+                            </label>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" >
