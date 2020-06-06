@@ -2,6 +2,7 @@ package com.code.community.controller;
 
 import com.code.community.dto.PaginationDTO;
 import com.code.community.model.User;
+import com.code.community.service.NotificationService;
 import com.code.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class ProfileController {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private NotificationService notificationService;
+
 
     @GetMapping("/profile/{action}")
     public String profile(
@@ -27,21 +31,23 @@ public class ProfileController {
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "size", defaultValue = "5") Integer size
     ){
-        if("questions".equals(action)){
-            model.addAttribute("section", "questions");
-            model.addAttribute("sectionName", "我的提问");
-        }else if("replies".equals(action)){
-            model.addAttribute("section", "replies");
-            model.addAttribute("sectionName", "最新回复");
-        }
-
         User user = (User) request.getSession().getAttribute("user");
         if(user == null){
             return "redirect:/";
         }
 
-        PaginationDTO paginationDTO = questionService.list(user.getId(), page, size);
-        model.addAttribute("pagination", paginationDTO);
+        if("questions".equals(action)){
+            model.addAttribute("section", "questions");
+            model.addAttribute("sectionName", "我的提问");
+            PaginationDTO paginationDTO = questionService.list(user.getId(), page, size);
+            model.addAttribute("pagination", paginationDTO);
+        }else if("replies".equals(action)){
+            PaginationDTO paginationDTO = notificationService.list(user.getId(), page, size);
+            model.addAttribute("section", "replies");
+            model.addAttribute("sectionName", "最新回复");
+            model.addAttribute("pagination", paginationDTO);
+        }
+
         return "profile";
     }
 }

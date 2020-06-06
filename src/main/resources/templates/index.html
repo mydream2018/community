@@ -34,7 +34,7 @@
             <hr/>
             <!--这里是话题中心-->
             <!--  这是github头像  th:src="${question.user.avatarUrl}"-->
-            <div class="media" th:each="question : ${pagination.questions}">
+            <div class="media" th:each="question : ${pagination.data}">
                 <div class="media-left">
                     <a href="#">
                         <img class="avatar-height media-object img-rounded"
